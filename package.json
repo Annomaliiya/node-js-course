@@ -1,0 +1,25 @@
+{
+  "name": "node-js-app",
+  "version": "1.0.0",
+  "description": "node-js-practice-repo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Annomaliiya/node-js-course.git"
+  },
+  "author": "Annomaliiya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Annomaliiya/node-js-course/issues"
+  },
+  "homepage": "https://github.com/Annomaliiya/node-js-course#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "commander": "^9.0.0"
+  }
+}
