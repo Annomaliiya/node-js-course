@@ -27,7 +27,7 @@ const removeContact = async (contactId) => {
   return contactsAfterRemoval;
 };
 
-async function addContact(name, email, phone) {
+const addContact = async (name, email, phone) => {
   const contactsArray = await listContacts();
   const contactIds = contactsArray.map((contact) => Number(contact.id));
   const newId = Math.max(...contactIds) + 1;
@@ -44,7 +44,7 @@ async function addContact(name, email, phone) {
     JSON.stringify(contactsAfterAdding, null, "\t")
   );
   return contactsAfterAdding;
-}
+};
 
 const contacts = {
   listContacts,

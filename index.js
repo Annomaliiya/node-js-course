@@ -17,7 +17,7 @@ program.parse(process.argv);
 
 const argv = program.opts();
 
-async function invokeAction({ action, id, name, email, phone }) {
+const invokeAction = async ({ action, id, name, email, phone }) => {
   switch (action) {
     case "list":
       console.table(await listContacts());
@@ -38,6 +38,6 @@ async function invokeAction({ action, id, name, email, phone }) {
     default:
       console.log("\x1B[31m Unknown action type!");
   }
-}
+};
 
 invokeAction(argv);
