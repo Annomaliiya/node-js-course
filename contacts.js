@@ -3,8 +3,12 @@ const path = require("path");
 
 const contactsPath = path.join(__dirname, "db/contacts.json");
 
+const updateContacts = async (contacts) => {
+  await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));
+};
+
 const listContacts = async () => {
-  const data = await fs.readFile(contactsPath, "utf-8");
+  const data = await fs.readFile(contactsPath);
   const contactsArray = JSON.parse(data);
   return contactsArray;
 };
@@ -12,19 +16,24 @@ const listContacts = async () => {
 const getContactById = async (contactId) => {
   const contactsArray = await listContacts();
   const contact = contactsArray.find((contact) => contact.id === contactId);
+  if (!contact) {
+    return null;
+  }
   return contact;
 };
 
 const removeContact = async (contactId) => {
   const contactsArray = await listContacts();
+  const removedById = contactsArray.find((contact) => contact.id === contactId);
+  if (!removedById) {
+    return null;
+  }
   const contactsAfterRemoval = contactsArray.filter(
     (contact) => contact.id !== contactId
   );
-  await fs.writeFile(
-    contactsPath,
-    JSON.stringify(contactsAfterRemoval, null, "\t")
-  );
-  return contactsAfterRemoval;
+  await updateContacts(contactsAfterRemoval);
+
+  return removedById;
 };
 
 const addContact = async (name, email, phone) => {
@@ -37,13 +46,8 @@ const addContact = async (name, email, phone) => {
     email,
     phone,
   };
-  const contactsAfterAdding = [...contactsArray];
-  contactsAfterAdding.push(newContact);
-  await fs.writeFile(
-    contactsPath,
-    JSON.stringify(contactsAfterAdding, null, "\t")
-  );
-  return contactsAfterAdding;
+  await updateContacts(contactsArray);
+  return newContact;
 };
 
 const contacts = {
